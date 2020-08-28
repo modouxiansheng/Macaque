@@ -1,0 +1,37 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.16.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'com.dmh'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
+}
+
+sourceSets {
+    main {
+        resources {
+            //可以将java目录下的所有非.java资源打包到classes下
+            srcDirs = ['src/main/java', 'src/main/resources']
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compile 'org.springframework.boot:spring-boot-starter-jta-atomikos'
+    compile 'com.alibaba:druid:1.1.10'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    compile 'mysql:mysql-connector-java:5.1.47'
+
+}
