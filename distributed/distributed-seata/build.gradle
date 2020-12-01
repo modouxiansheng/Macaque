@@ -38,6 +38,7 @@ sourceSets {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
@@ -46,4 +47,5 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     compile 'io.seata:seata-all:1.4.0'
+    compile 'mysql:mysql-connector-java:5.1.47'
 }
