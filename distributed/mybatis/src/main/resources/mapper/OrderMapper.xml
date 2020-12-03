@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dmh.mybatis.mapper.OrderMapper">
+
+    <resultMap id="userMap" type="com.dmh.mybatis.dao.OrderDto">
+        <result column="ID"                      property="id" />
+        <result column="ORDER_ID"                property="orderId"/>
+        <result column="VENDER_ID"               property="venderId"/>
+        <result column="ID_COMPANY_BRANCH"       property="idCompanyBranch"/>
+        <result column="CKY2"                    property="cky2"/>
+        <result column="PAYMENT_TYPE"            property="paymentType"/>
+        <result column="ORDER_TYPE"              property="orderType"/>
+        <result column="FREIGHT"                 property="freight"/>
+        <result column="PAYSUM_TYPE"             property="paysumType"/>
+        <result column="STATE"                   property="state"/>
+        <result column="STATE2"                  property="state2"/>
+        <result column="PRINTX"                  property="printx"/>
+        <result column="ZITI"                    property="ziti"/>
+        <result column="ORDER_POP_STATUS"        property="orderPopStatus"/>
+        <result column="YN"                      property="yn"/>
+        <result column="ORDER_CREATE_DATE"       property="orderCreateDate"  />
+        <result column="SUPPOSE_PAY"             property="supposePay"/>
+        <result column="SHOULD_PAY"              property="shouldPay"/>
+        <result column="OUTBOUND_DATE"           property="outboundDate"  />
+        <result column="DELIGOOD_TYPE"           property="deligoodType"  />
+        <result column="ID_SHIPMENTTYPE"         property="idShipmenttype"/>
+        <result column="AREA_NUM"                property="areaNum"/>
+        <result column="CONS_NAME"               property="consName"/>
+        <result column="CONS_ADDRESS"            property="consAddress"/>
+        <result column="CONS_PHONE"              property="consPhone"/>
+        <result column="CONS_MOBILE_PHONE"       property="consMobilePhone"/>
+        <result column="CONS_EMAIL"              property="consEmail"/>
+        <result column="CONS_POSTCODE"           property="consPostCode"/>
+        <result column="REMARK"                  property="remark"/>
+        <result column="PARENT_ID"               property="parentId"/>
+        <result column="JI_FEN"                  property="jiFen"/>
+        <result column="CARRIER_ID"              property="carrierId" />
+        <result column="STORE_ID"                property="storeId"/>
+        <result column="ORDER_COMPLETETIME"      property="orderCompletetime"  />
+        <result column="CREATED"                 property="created"  />
+        <result column="MODIFIED"                property="modified"  />
+        <result column="ORDER_SUM"               property="orderSum"/>
+        <result column="INVOICE_TITLE"           property="invoiceTitle"/>
+        <result column="INVOICE_CONTENT_ID"      property="invoiceContentId"/>
+        <result column="INVOICE_TYPE"            property="invoiceType"/>
+        <result column="SELLER_ORDER_SUM"        property="sellerOrderSum"/>
+        <result column="COUPON_EVENT_SUM"        property="couponEventSum"/>
+        <result column="DISPATH_ID"              property="dispathId"/>
+        <result column="DISPATH_NAME"            property="dispathName"/>
+        <result column="PROVINCE"                property="province"/>
+        <result column="CITY"                    property="city"/>
+        <result column="COUNTY"                  property="county"/>
+        <result column="INVOICE_STATE"           property="invoiceState"/>
+        <result column="PAYMENT_CONFIRM_TIME"    property="paymentConfirmTime"/>
+        <result column="BALANCE_USED" property="balanceUsed"/>
+        <result column="ERP_ORDER_STATUS"        property="erpOrderStatus"/>
+        <result column="ERP_UPDATE_TIME" property="erpUpdateTime"/>
+        <result column="ERP_SYNCH_TIME" property="erpSynchTime"/>
+        <result column="ORDER_SIGN"              property="orderSign"/>
+        <result column="CONS_INDEX" property="consIndex"/>
+        <result column="PIN" property="pin"/>
+        <result column="CUSTOMERIP" property="customerIp"/>
+        <result column="CENTER_ID" property="centerId"/>
+        <result column="OPERATOR" property="operator"/>
+        <result column="VAT_INFO"                property="vatInfo"/>
+        <result column="RECOMMEND_DELIVERY_ID"   property="recommendDeliveryId"/>
+        <result column="TOWN" property="town"/>
+        <result column="CUSTOMS"                 property="customs"/>
+        <result column="CUSTOMSMODEL"            property="customsModel"/>
+        <result column="SALES_PIN"               property="salesPin"/>
+        <result column="MDBSTORE_ID"             property="mdbStoreId"/>
+        <result column="SUPPLIER" property="supplier"/>
+        <result column="DIRECT_PARENT_ID" property="directParentId"/>
+        <result column="POP_SEND_PAY"            property="popSendPay"/>
+        <result column="REGION"            property="region"/>
+    </resultMap>
+
+
+    <select id="selectOrder" parameterType="Long" resultMap="userMap">
+        select * from pop_order_data where VENDER_ID = #{venderId}
+    </select>
+
+
+</mapper>
