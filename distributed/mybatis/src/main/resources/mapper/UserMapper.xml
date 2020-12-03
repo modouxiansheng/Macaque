@@ -14,5 +14,8 @@
         select * from user where id = #{id}
     </select>
 
+    <insert id="insertUser" parameterType="com.dmh.mybatis.mapper.UserMapper">
+        insert into user (user,name,xxx) value (#{user},#{name},#{xxx})
+    </insert>
 
 </mapper>

@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper {
 
     UserDto selectById (@Param("id") Integer id);
+
+    void insertUser(UserDto userDto);
 }

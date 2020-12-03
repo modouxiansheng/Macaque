@@ -1,5 +1,6 @@
 package com.dmh.mybatis;
 
+import com.alibaba.druid.sql.dialect.mysql.parser.MySqlStatementParser;
 import com.dmh.mybatis.dao.OrderDto;
 import com.dmh.mybatis.dao.UserDto;
 import com.dmh.mybatis.mapper.OrderMapper;
@@ -28,6 +29,14 @@ public class MybatisApplicationTests {
 	public void test(){
 		UserDto userDto = userMapper.selectById(Integer.valueOf(1));
 		System.out.printf("1");
+	}
+
+	@Test
+	public void testInsert(){
+		UserDto userDto = new UserDto();
+		userDto.setName("hu"+Math.random());
+		userDto.setUser("hu"+Math.random());
+		userMapper.insertUser(userDto);
 	}
 
 

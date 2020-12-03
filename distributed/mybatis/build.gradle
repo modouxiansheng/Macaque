@@ -29,6 +29,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1'
+	compile 'com.alibaba:druid:1.0.16'
 }
 
 test {
