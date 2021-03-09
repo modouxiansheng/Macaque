@@ -40,9 +40,8 @@ public class CardTableFalseSharingTest {
             EXECUTOR_SERVICE.execute(() -> {
                 int count = loop;
                 while (count-- > 0) {
-                    if ((count & 1) == 0) {
-                        hugeObj.x1 = x1;
-                    } else {
+                    if ((count & 1) == 0) hugeObj.x1 = x1;
+                    else {
                         hugeObj.x1 = x2;
                     }
                 }
