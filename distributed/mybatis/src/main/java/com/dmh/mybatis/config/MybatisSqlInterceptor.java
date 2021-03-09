@@ -18,11 +18,11 @@ import org.springframework.util.StringUtils;
 import java.sql.SQLException;
 import java.util.Properties;
 
-@Component
-@Intercepts(@Signature(type = Executor.class, method = "query",
-        args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}))
+//@Component
+//@Intercepts(@Signature(type = Executor.class, method = "query",
+//        args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}))
 public class MybatisSqlInterceptor implements Interceptor {
- 
+
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         // 获取sql
@@ -32,24 +32,24 @@ public class MybatisSqlInterceptor implements Interceptor {
         }
         // sql交由处理类处理  对sql语句进行处理  此处是范例  不做任何处理
         String sql2Reset = sql;
- 
+
         // 包装sql后，重置到invocation中
         resetSql2Invocation(invocation, sql2Reset);
- 
+
         // 返回，继续执行
         return invocation.proceed();
     }
- 
+
     @Override
     public Object plugin(Object obj) {
         return Plugin.wrap(obj, this);
     }
- 
+
     @Override
     public void setProperties(Properties arg0) {
         // doSomething
     }
- 
+
     /**
      * 获取sql语句
      * @param invocation
@@ -62,7 +62,7 @@ public class MybatisSqlInterceptor implements Interceptor {
         BoundSql boundSql = ms.getBoundSql(parameterObject);
         return boundSql.getSql();
     }
- 
+
     /**
      * 包装sql后，重置到invocation中
      * @param invocation
@@ -79,7 +79,7 @@ public class MybatisSqlInterceptor implements Interceptor {
         msObject.setValue("sqlSource.boundSql.sql", "select * from user where user = ?");
         args[0] = newStatement;
     }
- 
+
     private MappedStatement newMappedStatement(MappedStatement ms, SqlSource newSqlSource) {
         MappedStatement.Builder builder =
                 new MappedStatement.Builder(ms.getConfiguration(), ms.getId(), newSqlSource, ms.getSqlCommandType());
@@ -102,10 +102,10 @@ public class MybatisSqlInterceptor implements Interceptor {
         builder.cache(ms.getCache());
         builder.flushCacheRequired(ms.isFlushCacheRequired());
         builder.useCache(ms.isUseCache());
- 
+
         return builder.build();
     }
- 
+
     private String getOperateType(Invocation invocation) {
         final Object[] args = invocation.getArgs();
         MappedStatement ms = (MappedStatement) args[0];

@@ -17,8 +17,8 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.springframework.stereotype.Component;
 
-@Intercepts({ @Signature(method = "handleResultSets", type = ResultSetHandler.class, args = { Statement.class }) })
-@Component
+//@Intercepts({ @Signature(method = "handleResultSets", type = ResultSetHandler.class, args = { Statement.class }) })
+//@Component
 public class MapInterceptor implements Interceptor {
     @SuppressWarnings("unused")
     private Properties properties;

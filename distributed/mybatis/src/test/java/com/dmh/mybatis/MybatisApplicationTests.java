@@ -1,10 +1,9 @@
 package com.dmh.mybatis;
 
-import com.alibaba.druid.sql.dialect.mysql.parser.MySqlStatementParser;
-import com.dmh.mybatis.dao.OrderDto;
 import com.dmh.mybatis.dao.UserDto;
 import com.dmh.mybatis.mapper.OrderMapper;
 import com.dmh.mybatis.mapper.UserMapper;
+import com.dmh.mybatis.transaction.TransactionOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +19,10 @@ public class MybatisApplicationTests {
 	}
 
 	@Autowired
-	private OrderMapper orderMapper;
+	private UserMapper userMapper;
 
 	@Autowired
-	private UserMapper userMapper;
+	private TransactionOrder transactionOrder;
 
 	@Test
 	public void test(){
@@ -39,6 +38,8 @@ public class MybatisApplicationTests {
 		userMapper.insertUser(userDto);
 	}
 
-
-
+	@Test
+	public void testUpdate(){
+		transactionOrder.updateOrder();
+	}
 }

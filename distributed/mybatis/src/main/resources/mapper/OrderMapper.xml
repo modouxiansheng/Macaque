@@ -77,9 +77,18 @@
     </resultMap>
 
 
-    <select id="selectOrder" parameterType="Long" resultMap="userMap">
+    <select id="selectOrder" parameterType="long" resultMap="userMap">
         select * from pop_order_data where VENDER_ID = #{venderId}
     </select>
+
+
+    <update id="updateOrder">
+        update orders set code = 2 , quantity = 2 where id = 1;
+    </update>
+
+    <update id="updateOrder2">
+        update orders_2 set code = 2 , quantity = 2 where id = 1;
+    </update>
 
 
 </mapper>

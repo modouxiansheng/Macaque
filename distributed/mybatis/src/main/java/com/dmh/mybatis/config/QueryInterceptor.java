@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Statement;
 import java.util.Properties;
 
-@Intercepts({ @Signature(method = "query", type = Executor.class, args = { MappedStatement.class,Object.class, RowBounds.class, ResultHandler.class}) })
+//@Intercepts({ @Signature(method = "query", type = Executor.class, args = { MappedStatement.class,Object.class, RowBounds.class, ResultHandler.class}) })
 //@Component
 public class QueryInterceptor implements Interceptor {
     @Override

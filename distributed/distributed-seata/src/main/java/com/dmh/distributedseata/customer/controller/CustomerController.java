@@ -15,6 +15,11 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @RequestMapping("/index")
+    public String index(){
+        return "hello";
+    }
+
     @RequestMapping("/invokeCustomer")
     public String invokeCustomer(){
         customerService.invoke();

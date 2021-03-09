@@ -27,9 +27,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 import java.util.function.Predicate;
-
-@Intercepts({ @Signature(method = "update", type = Executor.class, args = { MappedStatement.class,Object.class}) })
-@Component
+//
+//@Intercepts({ @Signature(method = "update", type = Executor.class, args = { MappedStatement.class,Object.class}) })
+//@Component
 public class Updatenterceptor implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {

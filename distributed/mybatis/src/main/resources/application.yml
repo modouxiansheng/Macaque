@@ -14,7 +14,7 @@ spring:
   aop:
     proxy-target-class: true
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/datasource2?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/datasource1?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: hpy911213
 
