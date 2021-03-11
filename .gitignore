@@ -1,3 +1,6 @@
 distributed/.gradle/
 distributed/.idea/
 *.class
+.idea/
+macaque-log/
+macaque-log.iml
