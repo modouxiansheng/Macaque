@@ -50,7 +50,6 @@ public class LoggerLevelModifier {
                     return false;
                 }
             }
-
             return true;
         }
         else {

@@ -48,11 +48,9 @@ public class JulLogTest {
         consoleHandler.setFormatter(simpleFormatter);
         logger.addHandler(consoleHandler);
 
-
         // 配置日志具体级别
         logger.setLevel(Level.ALL);
         consoleHandler.setLevel(Level.ALL);
-
 
         logger.severe("severe");
         logger.warning("waring");

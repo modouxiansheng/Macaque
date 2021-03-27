@@ -20,8 +20,8 @@
         <module>macaque-log-log4j</module>
         <module>macaque-log-logback</module>
         <module>macaque-log-log4j2</module>
-        <module>spring-log</module>
         <module>macaque-log-spring</module>
+        <module>macaque-log-slf4j</module>
     </modules>
 
 

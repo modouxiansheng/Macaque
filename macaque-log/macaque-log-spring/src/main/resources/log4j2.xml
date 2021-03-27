@@ -3,7 +3,7 @@
     status="warn" 日志框架本身的输出日志级别
     monitorInterval="5" 自动加载配置文件的间隔时间，不低于 5 秒
 -->
-<Configuration status="ERROR" monitorInterval="5">
+<Configuration status="error" monitorInterval="5">
 
 
     <!--日志处理-->
@@ -13,14 +13,28 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L --- %m%n" />
         </Console>
 
+        <File name="compare"
+                     fileName="D:/log/compare.log"
+                     append="true">
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L --- %m%n"/>
+        </File>
+
     </Appenders>
 
     <!--logger 定义-->
     <Loggers>
+        <Logger name="com.macaque.aop.test" level="info" additivity="false">
+            <!--指定日志使用的处理器-->
+            <!--            <AppenderRef ref="Console" />-->
+            <AppenderRef ref="compare" />
+        </Logger>
         <!--使用 rootLogger 配置 日志级别 level="trace"-->
         <Root level="info">
             <!--指定日志使用的处理器-->
             <AppenderRef ref="Console" />
+<!--            <AppenderRef ref="compare" />-->
         </Root>
+
     </Loggers>
 </Configuration>

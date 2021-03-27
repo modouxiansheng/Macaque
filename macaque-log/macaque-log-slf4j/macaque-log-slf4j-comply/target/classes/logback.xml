@@ -25,7 +25,7 @@
     <!--控制台日志输出的 appender-->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <!--控制输出流对象 默认 System.out 改为 System.err-->
-        <target>System.err</target>
+        <target>System.out</target>
         <!--日志消息格式配置-->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${pattern}</pattern>
@@ -74,8 +74,8 @@
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <!--日志过滤规则-->
             <level>TRACE</level>
-            <onMatch>DENY</onMatch>
-            <onMismatch>ACCEPT</onMismatch>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
 
