@@ -9,11 +9,9 @@ import org.junit.Test;
  **/
 public class TestSlf4jBridge {
 
-
     @Test
     public void testLog4jToSlf4j(){
         Logger logger = Logger.getLogger(TestSlf4jBridge.class);
-
-        logger.info("xxxxxx");
+        logger.info("testLog4jToSlf4j");
     }
 }

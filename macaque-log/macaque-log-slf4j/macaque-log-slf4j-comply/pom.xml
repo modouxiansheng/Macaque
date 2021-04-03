@@ -19,17 +19,20 @@
             <version>4.12</version>
         </dependency>
 
+        <!--slf4j 的api-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.26</version>
         </dependency>
 
+        <!--logback 的实现 因为logback遵守了slf4j的规范，所以直接引入其实现包即可-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
+
 
     </dependencies>
 

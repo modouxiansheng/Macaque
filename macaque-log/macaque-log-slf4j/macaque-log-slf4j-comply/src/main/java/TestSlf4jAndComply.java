@@ -16,7 +16,7 @@ public class TestSlf4jAndComply {
     public void testLogback(){
         Logger logger = LoggerFactory.getLogger(TestSlf4jAndComply.class);
 
-        logger.info("xxx");
+        logger.info("testLogback");
 
     }
 }
