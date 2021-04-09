@@ -1,5 +1,6 @@
 package com.macaque.controller;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.macaque.LoggerLevelModifier;
 import com.macaque.SpringbootLogApplication;
 import org.slf4j.Logger;
@@ -17,14 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LogController {
 
-    private static Logger logger = LoggerFactory.getLogger(SpringbootLogApplication.class);
-
+    private static Logger logger = LoggerFactory.getLogger(LogController.class);
 
     @RequestMapping("/update/{level}")
     private String updateLog(@PathVariable("level") String level){
         LoggerLevelModifier.init();
         LoggerLevelModifier.setLogLevel("root",level);
-
         return "success";
     }
 
