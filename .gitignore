@@ -3,3 +3,5 @@ distributed/.idea/
 *.class
 .idea/
 macaque-log.iml
+macaque-log/macaque-log-log4j2/target
+macaque-log/macaque-log-spring/target/

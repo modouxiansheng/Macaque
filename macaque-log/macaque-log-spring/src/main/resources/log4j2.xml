@@ -13,27 +13,79 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L --- %m%n" />
         </Console>
 
-        <File name="compare"
-                     fileName="D:/log/compare.log"
-                     append="true">
+        <RollingFile name="LOGGER-DEBUG"
+                     fileName="D:/log/debug.log" filePattern="D:/log/debug-%i.log">
+            <Filters>
+                <ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+            </Filters>
             <PatternLayout
                     pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L --- %m%n"/>
-        </File>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <!--在同一个目录下，文件的个数限定为 30 个，超过进行覆盖-->
+            <DefaultRolloverStrategy max="30" />
+        </RollingFile>
+
+        <RollingFile name="LOGGER-INFO"
+                     fileName="D:/log/info.log" filePattern="D:/log/info-%i.log">
+            <Filters>
+                <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L --- %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <!--在同一个目录下，文件的个数限定为 30 个，超过进行覆盖-->
+            <DefaultRolloverStrategy max="30" />
+        </RollingFile>
+
+        <RollingFile name="LOGGER-WARN"
+                     fileName="D:/log/warn.log" filePattern="D:/log/warn-%i.log">
+            <Filters>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L --- %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <!--在同一个目录下，文件的个数限定为 30 个，超过进行覆盖-->
+            <DefaultRolloverStrategy max="30" />
+        </RollingFile>
+
+        <RollingFile name="LOGGER-ERROR"
+                     fileName="D:/log/error.log" filePattern="D:/log/error-%i.log">
+            <Filters>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L --- %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <!--在同一个目录下，文件的个数限定为 30 个，超过进行覆盖-->
+            <DefaultRolloverStrategy max="30" />
+        </RollingFile>
+
 
     </Appenders>
 
     <!--logger 定义-->
     <Loggers>
-        <Logger name="com.macaque.controller" level="info" additivity="false">
-            <!--指定日志使用的处理器-->
-            <!--            <AppenderRef ref="Console" />-->
-            <AppenderRef ref="compare" />
-        </Logger>
+
         <!--使用 rootLogger 配置 日志级别 level="trace"-->
-        <Root level="info">
+        <Root level="debug">
             <!--指定日志使用的处理器-->
             <AppenderRef ref="Console" />
-            <AppenderRef ref="compare" />
+            <AppenderRef ref="LOGGER-INFO" />
+            <AppenderRef ref="LOGGER-DEBUG" />
+            <AppenderRef ref="LOGGER-WARN" />
+            <AppenderRef ref="LOGGER-ERROR" />
         </Root>
 
     </Loggers>

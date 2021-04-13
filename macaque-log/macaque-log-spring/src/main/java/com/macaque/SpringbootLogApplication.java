@@ -10,6 +10,10 @@ public class SpringbootLogApplication {
 
     public static void main(String[] args) {
         Logger logger = LoggerFactory.getLogger(SpringbootLogApplication.class);
+        logger.debug("debug");
+        logger.info("info");
+        logger.warn("warn");
+        logger.error("error");
         SpringApplication.run(SpringbootLogApplication.class, args);
     }
 
