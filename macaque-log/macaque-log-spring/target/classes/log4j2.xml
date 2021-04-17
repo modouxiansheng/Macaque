@@ -10,7 +10,8 @@
     <Appenders>
         <!--控制台输出 appender-->
         <Console name="Console">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L --- %m%n" />
+<!--            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L -&#45;&#45; %m%n" />-->
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level]  --- [%t] %c : %msg%n" />
         </Console>
 
         <RollingFile name="LOGGER-DEBUG"
@@ -71,15 +72,13 @@
             <!--在同一个目录下，文件的个数限定为 30 个，超过进行覆盖-->
             <DefaultRolloverStrategy max="30" />
         </RollingFile>
-
-
     </Appenders>
 
     <!--logger 定义-->
     <Loggers>
 
         <!--使用 rootLogger 配置 日志级别 level="trace"-->
-        <Root level="debug">
+        <Root level="info">
             <!--指定日志使用的处理器-->
             <AppenderRef ref="Console" />
             <AppenderRef ref="LOGGER-INFO" />
@@ -87,6 +86,8 @@
             <AppenderRef ref="LOGGER-WARN" />
             <AppenderRef ref="LOGGER-ERROR" />
         </Root>
+
+
 
     </Loggers>
 </Configuration>
