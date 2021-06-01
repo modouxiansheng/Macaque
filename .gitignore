@@ -4,4 +4,5 @@ distributed/.idea/
 .idea/
 macaque-log.iml
 macaque-log/macaque-log-log4j2/target
-macaque-log/macaque-log-spring/target/
+macaque-log/macaque-log-spring/target
+distributed-link-tracking/tracking-agent/target
