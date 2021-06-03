@@ -9,6 +9,12 @@ package com.macaque.service;
 public class TestAgent {
 
     public static void main(String[] args) {
-        System.out.println("x");
+        final String xxxx = print("xxxx");
+        System.out.println(xxxx);
     }
+
+    private static String print(String str){
+        return str;
+    }
+
 }

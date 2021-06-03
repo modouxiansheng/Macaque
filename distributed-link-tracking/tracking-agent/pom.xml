@@ -11,6 +11,18 @@
 
     <artifactId>tracking-agent</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.4.16</version>
+        </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+            <version>1.4.16</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -25,6 +37,36 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <relocations>
+                                <relocation>
+                                    <shadedPattern>hu.shade.</shadedPattern>
+                                    <includes>
+                                        <include>net.bytebuddy.**</include>
+                                    </includes>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+<!--                        <configuration>-->
+<!--                            <transformers>-->
+<!--                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"/>-->
+<!--                            </transformers>-->
+<!--                        </configuration>-->
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -44,6 +86,8 @@
                     </archive>
                 </configuration>
             </plugin>
+
+
         </plugins>
     </build>
 
