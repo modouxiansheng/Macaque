@@ -9,6 +9,7 @@ import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.implementation.SuperMethodCall;
 import net.bytebuddy.implementation.bind.annotation.*;
 import net.bytebuddy.matcher.ElementMatchers;
+import net.bytebuddy.utility.JavaModule;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
@@ -32,19 +33,19 @@ public class PreMainTraceAgent {
         System.out.println("start premain");
         new AgentBuilder.Default()
                 .type(named("com.macaque.service.TestAgent"))
-                .transform((builder, typeDescription, classLoader) ->
+                .transform((builder, typeDescription, classLoader,javaModule) ->
                         builder.method(named("print"))
                         .intercept(MethodDelegation.to(new Interceptor()))
                 ).
                 installOn(instrumentation);
         new AgentBuilder.Default()
                 .type(named("com.macaque.service.TestAgent"))
-                .transform((builder, typeDescription, classLoader) ->
+                .transform((builder, typeDescription, classLoader,javaModule) ->
                         builder.method(named("print"))
                                 .intercept(MethodDelegation.to(new Interceptor()))
                 ).
                 installOn(instrumentation);
-
+        // MemberSubstitution
 
 //        instrumentation.addTransformer(new ClassFileTransformer() {
 //            @Override
