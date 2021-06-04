@@ -1,5 +1,6 @@
 package com.macaque.service;
 
+
 /**
  * @program: distributed-link-tracking
  * @description:
@@ -9,8 +10,7 @@ package com.macaque.service;
 public class TestAgent {
 
     public static void main(String[] args) {
-        final String xxxx = print("xxxx");
-        System.out.println(xxxx);
+        print("xxx");
     }
 
     private static String print(String str){

@@ -1,6 +1,7 @@
 package com.macaque.learn;
 
 import net.bytebuddy.agent.builder.AgentBuilder;
+import net.bytebuddy.asm.MemberSubstitution;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.implementation.FixedValue;
@@ -18,6 +19,7 @@ import java.lang.reflect.Method;
 import java.security.ProtectionDomain;
 import java.util.concurrent.Callable;
 
+import static net.bytebuddy.matcher.ElementMatchers.any;
 import static net.bytebuddy.matcher.ElementMatchers.named;
 
 /**
@@ -41,8 +43,56 @@ public class PreMainTraceAgent {
         new AgentBuilder.Default()
                 .type(named("com.macaque.service.TestAgent"))
                 .transform((builder, typeDescription, classLoader,javaModule) ->
-                        builder.method(named("print"))
-                                .intercept(MethodDelegation.to(new Interceptor()))
+                        builder.visit(MemberSubstitution.relaxed()
+                        .method(named("print"))
+                        .replaceWithField(ElementMatchers.named(""))
+                        .on(ElementMatchers.named("print")))
+                ).
+                installOn(instrumentation);
+
+        new AgentBuilder.Default()
+                .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
+                .type(any())
+                .transform(new AgentBuilder.Transformer() {
+                    @Override
+                    public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule) {
+
+                        try {
+                            System.out.println("xxx");
+                            return builder.visit(MemberSubstitution.relaxed()
+                            .method(named("xxx"))
+                            .replaceWith(TestReplace.class.getMethod("xxx", String.class,String.class,boolean.class,boolean.class))
+                            .on(any())
+                            );
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                }
+                ).
+                installOn(instrumentation);
+
+        new AgentBuilder.Default()
+                .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
+                .type(named("com.macaque.service.TestAgent"))
+                .transform(new AgentBuilder.Transformer() {
+                               @Override
+                               public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule) {
+
+                                   try {
+                                       System.out.println("xxxx");
+                                       return builder.visit(MemberSubstitution.relaxed()
+                                               .method(named("xxx"))
+                                               .replaceWith(TestReplace.class.getMethod("xxx", String.class))
+                                               .on(any())
+                                       );
+                                   } catch (NoSuchMethodException e) {
+                                       e.printStackTrace();
+                                   }
+                                   return null;
+                               }
+                           }
                 ).
                 installOn(instrumentation);
         // MemberSubstitution
@@ -57,6 +107,7 @@ public class PreMainTraceAgent {
 //            }
 //        });
     }
+
 
     public static class Interceptor{
         @RuntimeType
