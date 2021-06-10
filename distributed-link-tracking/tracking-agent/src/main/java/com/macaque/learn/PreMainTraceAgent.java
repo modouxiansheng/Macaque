@@ -33,68 +33,68 @@ public class PreMainTraceAgent {
     public static void premain(String agentArgs, Instrumentation instrumentation) {
 
         System.out.println("start premain");
-        new AgentBuilder.Default()
-                .type(named("com.macaque.service.TestAgent"))
-                .transform((builder, typeDescription, classLoader,javaModule) ->
-                        builder.method(named("print"))
-                        .intercept(MethodDelegation.to(new Interceptor()))
-                ).
-                installOn(instrumentation);
-        new AgentBuilder.Default()
-                .type(named("com.macaque.service.TestAgent"))
-                .transform((builder, typeDescription, classLoader,javaModule) ->
-                        builder.visit(MemberSubstitution.relaxed()
-                        .method(named("print"))
-                        .replaceWithField(ElementMatchers.named(""))
-                        .on(ElementMatchers.named("print")))
-                ).
-                installOn(instrumentation);
-
-        new AgentBuilder.Default()
-                .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
-                .type(any())
-                .transform(new AgentBuilder.Transformer() {
-                    @Override
-                    public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule) {
-
-                        try {
-                            System.out.println("xxx");
-                            return builder.visit(MemberSubstitution.relaxed()
-                            .method(named("xxx"))
-                            .replaceWith(TestReplace.class.getMethod("xxx", String.class,String.class,boolean.class,boolean.class))
-                            .on(any())
-                            );
-                        } catch (NoSuchMethodException e) {
-                            e.printStackTrace();
-                        }
-                        return null;
-                    }
-                }
-                ).
-                installOn(instrumentation);
-
-        new AgentBuilder.Default()
-                .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
-                .type(named("com.macaque.service.TestAgent"))
-                .transform(new AgentBuilder.Transformer() {
-                               @Override
-                               public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule) {
-
-                                   try {
-                                       System.out.println("xxxx");
-                                       return builder.visit(MemberSubstitution.relaxed()
-                                               .method(named("xxx"))
-                                               .replaceWith(TestReplace.class.getMethod("xxx", String.class))
-                                               .on(any())
-                                       );
-                                   } catch (NoSuchMethodException e) {
-                                       e.printStackTrace();
-                                   }
-                                   return null;
-                               }
-                           }
-                ).
-                installOn(instrumentation);
+//        new AgentBuilder.Default()
+//                .type(named("com.macaque.service.TestAgent"))
+//                .transform((builder, typeDescription, classLoader,javaModule) ->
+//                        builder.method(named("print"))
+//                        .intercept(MethodDelegation.to(new Interceptor()))
+//                ).
+//                installOn(instrumentation);
+//        new AgentBuilder.Default()
+//                .type(named("com.macaque.service.TestAgent"))
+//                .transform((builder, typeDescription, classLoader,javaModule) ->
+//                        builder.visit(MemberSubstitution.relaxed()
+//                        .method(named("print"))
+//                        .replaceWithField(ElementMatchers.named(""))
+//                        .on(ElementMatchers.named("print")))
+//                ).
+//                installOn(instrumentation);
+//
+//        new AgentBuilder.Default()
+//                .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
+//                .type(any())
+//                .transform(new AgentBuilder.Transformer() {
+//                    @Override
+//                    public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule) {
+//
+//                        try {
+//                            System.out.println("xxx");
+//                            return builder.visit(MemberSubstitution.relaxed()
+//                            .method(named("xxx"))
+//                            .replaceWith(TestReplace.class.getMethod("xxx", String.class,String.class,boolean.class,boolean.class))
+//                            .on(any())
+//                            );
+//                        } catch (NoSuchMethodException e) {
+//                            e.printStackTrace();
+//                        }
+//                        return null;
+//                    }
+//                }
+//                ).
+//                installOn(instrumentation);
+//
+//        new AgentBuilder.Default()
+//                .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
+//                .type(named("com.macaque.service.TestAgent"))
+//                .transform(new AgentBuilder.Transformer() {
+//                               @Override
+//                               public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule) {
+//
+//                                   try {
+//                                       System.out.println("xxxx");
+//                                       return builder.visit(MemberSubstitution.relaxed()
+//                                               .method(named("xxx"))
+//                                               .replaceWith(TestReplace.class.getMethod("xxx", String.class))
+//                                               .on(any())
+//                                       );
+//                                   } catch (NoSuchMethodException e) {
+//                                       e.printStackTrace();
+//                                   }
+//                                   return null;
+//                               }
+//                           }
+//                ).
+//                installOn(instrumentation);
         // MemberSubstitution
 
 //        instrumentation.addTransformer(new ClassFileTransformer() {
@@ -106,6 +106,21 @@ public class PreMainTraceAgent {
 //                return new byte[0];
 //            }
 //        });
+    }
+
+    public static void agentmain (String agentArgs, Instrumentation inst){
+        System.out.println("premain load Class1:" + agentArgs);
+
+        inst.addTransformer(new DefineTransformer(), true);
+    }
+
+    static class DefineTransformer implements ClassFileTransformer {
+
+        @Override
+        public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
+            System.out.println("premain load Class2:" + className);
+            return classfileBuffer;
+        }
     }
 
 
