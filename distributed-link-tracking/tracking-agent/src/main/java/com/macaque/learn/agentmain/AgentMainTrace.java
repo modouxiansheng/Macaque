@@ -29,25 +29,19 @@ import static net.bytebuddy.jar.asm.Opcodes.ASM7;
 public class AgentMainTrace {
 
     public static void agentmain (String agentArgs, Instrumentation inst) throws UnmodifiableClassException {
-
-
-
         System.out.println("premain load Class2:" + agentArgs);
 
         new AgentBuilder.Default()
-                .type(ElementMatchers.named("TestAgent"))
+                .type(ElementMatchers.named("com.macaque.service.agentmain.TestAgentMain"))
                 .transform(new AgentBuilder.Transformer() {
                     @Override
-                    public DynamicType.Builder<?> transform(DynamicType.Builder<?> arg0, TypeDescription arg1,
+                    public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription arg1,
                                                             ClassLoader arg2, JavaModule arg3) {
-                        System.out.println("xxxxx");
-
-                        return arg0.method(ElementMatchers.named("foo"))
+                        return builder.method(ElementMatchers.named("foo"))
                                 .intercept(FixedValue.value(50));
                     }
-
                 }).installOn(inst);
-        
+
     }
 
 }
