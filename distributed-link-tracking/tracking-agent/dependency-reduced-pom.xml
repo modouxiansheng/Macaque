@@ -16,6 +16,10 @@
           <source>1.8</source>
           <target>1.8</target>
           <encoding>UTF-8</encoding>
+          <compilerArguments>
+            <verbose />
+            <bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar;${java.home}/lib/jsse.jar</bootclasspath>
+          </compilerArguments>
         </configuration>
       </plugin>
       <plugin>
@@ -32,6 +36,8 @@
                   <shadedPattern>hu.shade.</shadedPattern>
                   <includes>
                     <include>net.bytebuddy.**</include>
+                    <include>org.ow2.asm.**</include>
+                    <include>org.objectweb.asm.**</include>
                   </includes>
                 </relocation>
               </relocations>
@@ -48,8 +54,8 @@
               <addClasspath>true</addClasspath>
             </manifest>
             <manifestEntries>
-              <Premain-Class>com.macaque.learn.PreMainTraceAgent</Premain-Class>
-              <Agent-Class>com.macaque.learn.PreMainTraceAgent</Agent-Class>
+              <Premain-Class>com.macaque.learn.premain.PreMainTraceAgent</Premain-Class>
+              <Agent-Class>com.macaque.learn.agentmain.AgentMainTrace</Agent-Class>
               <Can-Redefine-Classes>true</Can-Redefine-Classes>
               <Can-Retransform-Classes>true</Can-Retransform-Classes>
             </manifestEntries>

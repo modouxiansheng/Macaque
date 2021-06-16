@@ -1,6 +1,8 @@
-package com.macaque.learn;
+package com.macaque.learn.premain;
 
+import com.macaque.learn.premain.advice.ChangeMethodArgumentsAdvice;
 import net.bytebuddy.agent.builder.AgentBuilder;
+import net.bytebuddy.asm.Advice;
 import net.bytebuddy.asm.MemberSubstitution;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
@@ -106,21 +108,28 @@ public class PreMainTraceAgent {
 //                return new byte[0];
 //            }
 //        });
+        replaceMethodArgs(agentArgs,instrumentation);
     }
 
-    public static void agentmain (String agentArgs, Instrumentation inst){
-        System.out.println("premain load Class1:" + agentArgs);
 
-        inst.addTransformer(new DefineTransformer(), true);
-    }
+    /**
+    * @Description: 改变方法的入参
+    * @Param: [agentArgs, instrumentation]
+    * @return: void
+    * @Author: hu_pf
+    * @Date: 2021/6/16
+    */
+    public static void replaceMethodArgs(String agentArgs, Instrumentation instrumentation){
 
-    static class DefineTransformer implements ClassFileTransformer {
+        // takesArguments 指定方法的入参类型
+        AgentBuilder.Transformer transformer = (builder, typeDescription, classLoader, module) -> builder.visit(Advice.to(ChangeMethodArgumentsAdvice.class).on(ElementMatchers.named("print")
+        .and(ElementMatchers.takesArguments(String.class,Integer.class))));
+        AgentBuilder.Transformer methodIntercept = (builder, typeDescription, classLoader, module) -> builder.method(any()).intercept(MethodDelegation.to(new Interceptor()));
 
-        @Override
-        public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
-            System.out.println("premain load Class2:" + className);
-            return classfileBuffer;
-        }
+        new AgentBuilder.Default()
+                .type(named("com.macaque.service.TestAgent"))
+                .transform(transformer)
+                .installOn(instrumentation);
     }
 
 

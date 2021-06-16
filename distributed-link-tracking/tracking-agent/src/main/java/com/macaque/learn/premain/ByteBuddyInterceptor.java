@@ -1,4 +1,4 @@
-package com.macaque.learn;
+package com.macaque.learn.premain;
 
 import net.bytebuddy.implementation.bind.annotation.*;
 
