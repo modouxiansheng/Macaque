@@ -6,6 +6,7 @@ import jdk.internal.org.objectweb.asm.ClassWriter;
 import jdk.internal.org.objectweb.asm.MethodVisitor;
 import jdk.internal.org.objectweb.asm.commons.AdviceAdapter;
 import net.bytebuddy.agent.builder.AgentBuilder;
+import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.implementation.FixedValue;
@@ -19,6 +20,7 @@ import java.lang.instrument.UnmodifiableClassException;
 import java.security.ProtectionDomain;
 
 import static net.bytebuddy.jar.asm.Opcodes.ASM7;
+import static net.bytebuddy.matcher.ElementMatchers.*;
 
 /**
  * @program: distributed-link-tracking
@@ -29,19 +31,21 @@ import static net.bytebuddy.jar.asm.Opcodes.ASM7;
 public class AgentMainTrace {
 
     public static void agentmain (String agentArgs, Instrumentation inst) throws UnmodifiableClassException {
-        System.out.println("premain load Class2:" + agentArgs);
-
+        System.out.println("agent main load Class:" + agentArgs);
         new AgentBuilder.Default()
-                .type(ElementMatchers.named("com.macaque.service.agentmain.TestAgentMain"))
+                .ignore(none())
+                .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
+                .disableClassFormatChanges()
+                .type(named("com.macaque.service.premain.PreMainTest"))
                 .transform(new AgentBuilder.Transformer() {
                     @Override
                     public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription arg1,
                                                             ClassLoader arg2, JavaModule arg3) {
-                        return builder.method(ElementMatchers.named("foo"))
+                        return builder.method(named("foo"))
                                 .intercept(FixedValue.value(50));
                     }
                 }).installOn(inst);
 
     }
-
 }
+

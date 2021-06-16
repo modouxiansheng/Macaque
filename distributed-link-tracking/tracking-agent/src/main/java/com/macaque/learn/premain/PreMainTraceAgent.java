@@ -21,8 +21,7 @@ import java.lang.reflect.Method;
 import java.security.ProtectionDomain;
 import java.util.concurrent.Callable;
 
-import static net.bytebuddy.matcher.ElementMatchers.any;
-import static net.bytebuddy.matcher.ElementMatchers.named;
+import static net.bytebuddy.matcher.ElementMatchers.*;
 
 /**
  * @program: distributed-link-tracking
@@ -131,7 +130,6 @@ public class PreMainTraceAgent {
                 .transform(transformer)
                 .installOn(instrumentation);
     }
-
 
     public static class Interceptor{
         @RuntimeType
