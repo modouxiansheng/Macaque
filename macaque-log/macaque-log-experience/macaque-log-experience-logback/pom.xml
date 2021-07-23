@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.macaque</groupId>
-            <artifactId>macaque-log-experience-log4j2-slf4j</artifactId>
+            <artifactId>macaque-log-experience-log4j2</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
