@@ -2,9 +2,16 @@ package com.example.springboot.springboot.service;
 
 import com.example.springboot.springboot.CommonTest;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
+import javax.annotation.Resource;
+
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 /**
  * @program: unit-test
  * @description:
@@ -13,15 +20,15 @@ import org.springframework.beans.factory.annotation.Autowired;
  **/
 public class UnitServiceTest extends CommonTest {
 
-    @Autowired
+    @MockBean
     private UnitService unitService;
 
     @Test
     public void getTextTest(){
+        when(unitService.getText()).thenReturn("mock");
+        String text = unitService.getText();
 
-        final String text = unitService.getText();
-
-        Assert.assertEquals("hello",text);
+        System.out.println(text);
     }
 
     @Test
@@ -31,4 +38,5 @@ public class UnitServiceTest extends CommonTest {
 
         Assert.assertEquals("hello1",text);
     }
+
 }
